@@ -1,4 +1,14 @@
 # sort-in-PowerPC
-Programa duotai architektūrai asemblerio kalba
+<h1 align="center"> Programa duotai architektūrai asemblerio kalba </h1>
 
-Bubble sort, sometimes referred to as sinking sort, is a simple sorting algorithm that repeatedly steps through the list to be sorted, compares each pair of adjacent items and swaps them if they are in the wrong order. The pass through the list is repeated until no swaps are needed, which indicates that the list is sorted. The algorithm, which is a comparison sort, is named for the way smaller or larger elements "bubble" to the top of the list. Although the algorithm is simple, it is too slow and impractical for most problems even when compared to insertion sort. Bubble sort can be practical if the input is in mostly sorted order with some out-of-order elements nearly in position.
+*Pasirinktas Burbulinis rikiavimas, nes jis lengvai įgivendinamas.*
+
+<ins>**Burbulo rikiavimo metodas**</ins> – vienas iš paprastų, bet nelabai efektyvių rikiavimo algoritmų.
+**Algoritmo principas** – nuosekliai iš eilės peržiūrėti gretimų elementų poras, prireikus elementus sukeisti, perkeliant mažesnį arčiau pradžios. 
+Tokiu būdu per pirmą iteraciją mažiausias elementas perkeliamas į pirmą poziciją, vėliau tas pats principas taikomas posekiui be pirmo elemento ir t. t.
+
+*Burbulo algoritmas N elementų masyvo rikiavimui naudoja apie N²/2 lyginimų ir N²/2 keitimų vietomis, tiek laukiamu, tiek ir blogiausiu atveju. 
+Algoritmas nenaudoja papildomos atminties.*
+
+![Bubble_sort_animation](https://github.com/user-attachments/assets/79fd3bad-edcf-4e89-ad51-bdaba033252c)
+
