@@ -1,0 +1,7 @@
+import struct
+
+input_data = [5, 2, 9, 1, 5, 6]
+
+with open("test_input.bin", "wb") as f:
+    for num in input_data:
+        f.write(struct.pack(">i", num))
