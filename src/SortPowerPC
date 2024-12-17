@@ -1,0 +1,44 @@
+        # PowerPC Bubble Sort implemenntacija
+        # Programa rusiuoja Integerius didejancia tvarka
+
+        .section .data                   # data section input masyvo duomenim
+list_start:  .long 5, 2, 9, 1, 5, 6      # pavyzdinis masyvas sortui
+list_size:   .long 6                    # elementu skaicius masyve
+
+        .section .text                   # code section
+        .globl _start
+
+_start:
+        lis r3, list_start@ha           # ikeliame aukstaja masyvo dali o r3
+        addi r3, r3, list_start@l       # pilna adresa gauname r3
+        lwz r4, list_size               # ikeliam masyvo dydi i r4
+
+outer_loop:
+        li r5, 0                        # ciklo counteris i i 0
+
+inner_loop:
+        cmpw r5, r4                     # lyginam i su dydziu
+        bge outer_loop_end              # jei i >= size, exit inner loop
+
+        mulli r6, r5, 4                 # r6 = i * 4 (integerio dydzio)
+        add r7, r3, r6                  # r7 = masyvas[i] adresas
+        lwz r8, 0(r7)                   # Load masyvas[i] i r8
+        lwz r9, 4(r7)                   # Load masyvas[i+1] i r9
+        
+        cmpw r8, r9                     # palyginam masyvas[i] ir masyvas[i+1]
+        ble no_swap                     # jei masyvasy[i] <= masyvas[i+1] neapkeicia
+        stw r9, 0(r7)                   # masyvas[i+1] masyve[i]
+        stw r8, 4(r7)                   # masyvas[i] masyve[i+1]
+
+no_swap:
+        addi r5, r5, 1                  # increment loop counter (i)
+        b inner_loop                    # kartoja inner loop
+
+outer_loop_end:
+        subi r4, r4, 1                  # mazina outer loop size
+        cmpwi r4, 1                     # ziuri ar reikia kartoti
+        bgt outer_loop                  # jei size > 1, repeat outer loop
+
+        li r0, 1                        # Syscall number for exit
+        li r3, 0                        # Exit code
+        sc
