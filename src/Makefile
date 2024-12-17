@@ -1,20 +1,25 @@
-CC = as
-LD = ld
-EMU = qemu-ppc64
-SRC = SortPowerPC.s
+AS = powerpc-linux-gnu-as
+LD = powerpc-linux-gnu-ld
+QEMU = qemu-ppc-static
+
+SRC = SortPowerPC
 OBJ = SortPowerPC.o
-BIN_DIR = ../bin
-BIN = $(BIN_DIR)/SortPowerPC
+BIN = ../tests/SortPowerPC
+
+TEST_INPUT = ../tests/test_input.bin
+EXPECTED_OUTPUT = ../tests/expected_output.bin
+RESULTS_LOG = ../tests/results.log
 
 all: build
 
 build:
-	@mkdir -p $(BIN_DIR)           # Ensure bin directory exists
-	$(CC) -o $(OBJ) $(SRC)         # Assemble source code
-	$(LD) -o $(BIN) $(OBJ)         # Link to create executable
+	$(AS) -o $(OBJ) $(SRC)
+	$(LD) -o $(BIN) $(OBJ)
 
-run:
-	$(EMU) $(BIN)
+run: build
+	$(QEMU) $(BIN) < $(TEST_INPUT) > output.bin
+	diff output.bin $(EXPECTED_OUTPUT) > /dev/null
+	@echo "Test Passed!" > $(RESULTS_LOG) || echo "Test Failed!" > $(RESULTS_LOG)
 
 clean:
-	rm -f $(OBJ) $(BIN)
+	rm -f $(OBJ) $(BIN) output.bin $(RESULTS_LOG)
